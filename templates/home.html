@@ -1,0 +1,67 @@
+{% extends "default.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center" style="max-width:100%;">
+        <div class="col-md-10 mt-4">
+            <form action="{{ url_for('searching_result_page') }}" method="POST">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search_field" placeholder="Rechercher...">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if not found_articles %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-10">
+            <div class="flex-xl-column-reverse">
+                <h1>Les 5 dernières publications</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        {% for article in articles %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article[1] }}</h5>
+                    <p class="card-text">Auteur: {{ article[3] }}</p>
+                    <p class="card-text">Date de publication: {{ article[4] }}</p>
+                    <p class="card-text">Contenu: {{ article[5] }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if found_articles %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-10 overflow-auto">
+            <h2>Résultats de la recherche</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Date de publication</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in found_articles %}
+                    <tr>
+                        <td><a href="{{ url_for('details_article', identifiant=article[2]) }}">{{ article[1] }}</a></td>
+                        <td>{{ article[4] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,211 @@
+{% extends "default.html" %}
+
+{% block title %}Liste des Admin Users{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Liste des Admin Users</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in admin_users %}
+                    <tr>
+                        <td>{{ user[1] }}</td>
+                        <td>{{ user[3] }}</td>
+                        <td>{{ user[4] }}</td>
+                        <td>{{ user[5] }}</td>
+                        <td>{% if user[6] == 1 %} Actif {% else %} Inactif {% endif %}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modifierDesactiverUtilisateurModal{{ user[0] }}">
+                                Modifier/Desactiver
+                            </button>
+
+                            <div class="modal fade" id="modifierDesactiverUtilisateurModal{{ user[0] }}" tabindex="-1"
+                                role="dialog" aria-labelledby="modifierDesactiverUtilisateurModal{{ user[0] }}Label"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+
+                                            <h5 class="modal-title"
+                                                id="modifierDesactiverUtilisateurModal{{ user[0] }}Label">
+                                                Modifier/Desactiver l'utilisateur</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ url_for('modifier_utilisateur', user_id=user[0]) }}"
+                                                method="post" onsubmit="handleSubmit(event)">
+
+                                                <div class="form-group">
+                                                    <label for="username">Nom d'utilisateur</label>
+                                                    <input type="text" name="username" value="{{ user[1] }}"
+                                                        class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password">Mot de passe</label>
+                                                    <input id="password" type="password" name="password"
+                                                        class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="confirm_password">Confirmez le mot de passe</label>
+                                                    <input id="confirm_password" type="password" name="confirm_password"
+                                                        class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nom">Nom</label>
+                                                    <input type="text" name="nom" value="{{ user[3] }}"
+                                                        class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="prenom">Prénom</label>
+                                                    <input type="text" name="prenom" value="{{ user[4] }}"
+                                                        class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" name="email" value="{{ user[5] }}"
+                                                        class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="confirm">Êtes-vous sûr de vouloir désactiver cet
+                                                        utilisateur ?</label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </form>
+                                            <form id="deactivateForm{{ user[0] }}"
+                                                action="{{ url_for('desactiver_utilisateur', user_id=user[0]) }}"
+                                                method="post">
+                                                {% if user[6] %}
+                                                <input type="hidden" name="action" value="0"> <!-- Deactivate action -->
+                                                <div class="form-group">
+                                                    <label for="confirm">Êtes-vous sûr de vouloir désactiver cet
+                                                        utilisateur ?</label>
+                                                </div>
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="confirmDeactivation(event, 'deactivateForm{{ user[0] }}')">Désactiver</button>
+                                                {% else %}
+                                                <input type="hidden" name="action" value="1"> <!-- Activate action -->
+                                                <button type="submit" class="btn btn-success">Activer</button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ajouterUtilisateurModal">
+                Nouvel Utilisateur
+            </button>
+
+            <div class="modal fade" id="ajouterUtilisateurModal" tabindex="-1" role="dialog"
+                aria-labelledby="ajouterUtilisateurModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ajouterUtilisateurModalLabel">Ajouter un nouvel utilisateur</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('ajouter_utilisateur') }}" method="post"
+                                onsubmit="handleSubmit(event)">
+                                <div class="form-group">
+                                    <label for="username">Nom d'utilisateur</label>
+                                    <input type="text" name="username" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Mot de passe</label>
+                                    <input id="password" type="password" name="password" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm_password">Confirmez le mot de passe</label>
+                                    <input id="confirm_password" type="password" name="confirm_password"
+                                        class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Nom</label>
+                                    <input type="text" name="nom" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prenom">Prénom</label>
+                                    <input type="text" name="prenom" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Annuler</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    function verifyPassword() {
+        console.log(' oui:>> ');
+
+        var password = document.getElementById("password").value;
+        var confirm_password = document.getElementById("confirm_password").value;
+        if (password != confirm_password) {
+            alert("Les mots de passe ne correspondent pas !");
+            return false;
+        }
+        return true;
+    }
+
+    function handleSubmit(event) {
+        console.log(' rien:>> ');
+        if (!verifyPassword()) {
+            event.preventDefault();
+        }
+    }
+
+    function confirmDeactivation(event, formId) {
+        event.preventDefault();
+        var confirmation = confirm("Êtes-vous sûr de vouloir désactiver cet utilisateur ?");
+        if (confirmation) {
+            document.getElementById(formId).submit();
+        }
+    }
+
+</script>
+
+{% endblock %}

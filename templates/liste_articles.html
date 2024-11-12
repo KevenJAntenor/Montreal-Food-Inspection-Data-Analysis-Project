@@ -1,0 +1,63 @@
+{% extends "default.html" %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-10 mb-4">
+        <div class="col-md-12">
+            <a href="{{ url_for('admin_nouvel_article') }}" class="btn btn-success">Nouvel Article</a>
+        </div>
+    </div>
+    <div class="row">
+        {% for article in articles %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article[1] }}</h5>
+                    <p class="card-text">Date de publication: {{ article[4] }}</p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#modifyArticleModal{{ article[2] }}">
+                        Modifier
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modifyArticleModal{{ article[2] }}" tabindex="-1" role="dialog"
+            aria-labelledby="modifyArticleModalLabel{{ article[2] }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modifyArticleModalLabel{{ article[2] }}">Modifier l'article</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="{{ url_for('modifier_article', identifiant=article[2]) }}" method="post">
+                            <div class="form-group">
+                                <label for="titre">Titre</label>
+                                <input type="text" class="form-control" id="titre" name="title"
+                                    value="{{ article[1] }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="contenu">Contenu</label>
+                                <textarea class="form-control" id="contenu" name="content"
+                                    rows="3">{{ article[5] }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

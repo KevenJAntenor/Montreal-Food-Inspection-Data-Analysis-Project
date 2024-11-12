@@ -1,0 +1,66 @@
+{% extends "default.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center login-container">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Login</h3>
+                </div>
+                <div class="card-body">
+                    <form id="loginForm" method="post" action="/admin" novalidate>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="Enter username" value="{{ request.form['username'] }}" required>
+                            <div class="invalid-feedback">
+                                Please enter your username.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Enter password" value="{{ request.form['password'] }}" required>
+                            <div class="invalid-feedback">
+                                Please enter your password.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var form = document.getElementById('loginForm');
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    displayErrorMessages();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        }, false);
+
+        function displayErrorMessages() {
+            var inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(function (input) {
+                if (!input.validity.valid) {
+                    var feedback = input.nextElementSibling;
+                    feedback.innerText = input.validationMessage;
+                    feedback.style.display = 'block';
+                }
+            });
+        }
+    })();
+</script>
+{% endblock %}
+{% endblock %}

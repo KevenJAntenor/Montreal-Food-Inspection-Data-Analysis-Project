@@ -1,0 +1,67 @@
+{% extends "default.html" %}
+{% block content %}
+<div class="container">
+  <form class="form-horizontal" action="/admin-nouveau" method="POST">
+    <div class="form-group form-group-lg">
+      <label class="col-lg-2 control-label" for="formGroupInputLarge">Titre</label>
+      <div class="col-lg">
+        <input class="form-control" type="text" id="formGroupInputLarge" name="titre" value='{{request.form["titre"]}}'
+          placeholder="Titre de l'article">
+      </div>
+      {% if errorTitle %}
+      <p class="error">{{errorTitle}}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group form-group-lg">
+      <label class="col-sm-2 control-label" for="formGroupInputLarge">Identifiant</label>
+      <div class="col-lg">
+        <input class="form-control" type="text" id="formGroupInputLarge" name="identifiant"
+          value='{{request.form["identifiant"]}}' placeholder="Identifiant">
+      </div>
+      {% if errorId %}
+      <p class="error">{{errorId}}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group form-group-lg">
+      <label class="col-sm-2 control-label" for="formGroupInputLarge">Auteur</label>
+      <div class="col-lg">
+        <input class="form-control" type="text" id="formGroupInputLarge" name="auteur"
+          value='{{request.form["auteur"]}}' placeholder="Auteur">
+      </div>
+      {% if errorAuthor %}
+      <p class="error">{{errorAuthor}}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group form-group-lg">
+      <label class="col-lg-2 control-label" for="formGroupInputLarge">Date de publication</label>
+      <div class="col-lg">
+        <input class="form-control" type="text" id="formGroupInputLarge" name="date_publication"
+          value='{{request.form["date_publication"]}}' placeholder="YYYY-MM-DD">
+      </div>
+      {% if errorDate %}
+      <p class="error">{{errorDate}}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group form-group-lg">
+      <label class="col-sm-2 control-label" for="formGroupInputLarge">Paragraphe</label>
+      <textarea class="form-control" id="formGroupTextArea" rows="3"
+        name="paragraphe">{{request.form["paragraphe"]}}</textarea>
+      {% if errorParagraph %}
+      <p class="error">{{errorParagraph}}</p>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Ajouter</button>
+    <button type="reset" class="btn btn-secondary btn-lg btn-block">Effacer</button>
+    <br>
+    <a href="/liste-articles">
+      <button type="button" class="btn btn-secondary btn-lg btn-block">Revenir à la page Administrateur</button>
+    </a>
+  </form>
+</div>
+
+{%endblock content%}

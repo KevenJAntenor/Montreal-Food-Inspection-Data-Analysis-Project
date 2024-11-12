@@ -1,0 +1,60 @@
+{% extends "default.html" %}
+{% block content %}
+<!-- <div class="container">
+    <div class="table-responsive-md">
+        <table class="table">
+            <tr>
+                <td class="font-weight-bold">Identifiant Article : </td>
+                <td>{{article.identifiant}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Titre</td>
+                <td>{{article.titre}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Publié par </td>
+                <td>{{article.auteur}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Publié le </td>
+                <td>{{article.date_publication}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Pararaphe</td>
+                <td>{{article.paragraphe}}</td>
+            </tr>
+        </table>
+        <a href="/admin">
+            <button type="button" class="btn btn-secondary btn-lg btn-block">Revenir à la page Administrateur</button>
+        </a>
+    </div>
+
+</div> -->
+
+<div class="container">
+    <div class="row center-content">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article[1] }}</h5>
+                    <p class="card-text">Auteur: {{ article[3] }}</p>
+                    <p class="card-text">Date de publication: {{ article[4] }}</p>
+                    <p class="card-text">Contenu: {{ article[5] }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card profile-card">
+                <!-- <img src="{{ url_for('static', filename='autheur.photo_profil') }}" class="card-img-top" -->
+                <img src="{{ url_for('static', filename=auteur[6]) }}" class="card-img-top" alt="{{ auteur[6] }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ auteur[3] }} {{ auteur[4] }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content%}
