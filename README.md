@@ -3,10 +3,6 @@
 ## Project Overview
 A data analysis project that processes and provides services based on open data from the City of Montreal regarding food establishment inspection violations. The project focuses on analyzing health inspection records and infractions issued to food establishments across Montreal.
 
-## Project Structure
-- Individual Project: Minimum 100 XP required
-- Team Project (2 people): Minimum 200 XP required
-
 ## Features
 - Modular development system with experience points (XP)
 - Feature dependencies starting from A1
