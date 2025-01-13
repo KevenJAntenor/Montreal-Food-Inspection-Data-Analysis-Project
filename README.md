@@ -15,3 +15,27 @@ Open data from the City of Montreal's food inspection database, containing:
 - Health inspection records
 - Violation notices and infractions
 
+## How to Run
+
+Follow these steps to set up and run the Montreal Food Inspection Data Analysis Project:
+
+1. **Clone the Repository**
+   Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/your-repo/montreal-food-inspection.git
+   cd montreal-food-inspection
+Install Dependencies Ensure you have Python installed (version >= 3.8 is recommended). Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+Set Up the Project
+
+Ensure the database folder contains the necessary database files required for the analysis.
+Static assets like profile photos should be placed in the static/profiles_photos directory.
+Templates for the web interface, if used, are in the templates folder.
+Run the Application Execute the Python application using the following command:
+
+```bash
+python app.py
+```
