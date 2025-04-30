@@ -15,7 +15,7 @@ Open data from the City of Montreal's food inspection database, containing:
 - Health inspection records
 - Violation notices and infractions
 
-## How to Run
+## 🚀 How to Run
 
 Follow these steps to set up and run the Montreal Food Inspection Data Analysis Project:
 
