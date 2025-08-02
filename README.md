@@ -3,7 +3,7 @@
 ## Project Overview
 A data analysis project that processes and provides services based on open data from the City of Montreal regarding food establishment inspection violations. The project focuses on analyzing health inspection records and infractions issued to food establishments across Montreal.
 
-## Features
+## ⭐  Features
 - Modular development system with experience points (XP)
 - Feature dependencies starting from A1
 - Multiple development paths based on completed features
