@@ -1,4 +1,4 @@
-# 🍁🍽️📊 Montreal Food Inspection Data Analysis Project
+ # 🍁🍽️📊 Montreal Food Inspection Data Analysis Project
 
 ## 🧭 Project Overview
 A data analysis project that processes and provides services based on open data from the City of Montreal regarding food establishment inspection violations. The project focuses on analyzing health inspection records and infractions issued to food establishments across Montreal.
